@@ -4,3 +4,8 @@
 ### Build instructions
 `podman build -t joellord/idontcare-openshift-auth .`
 `podman push joellord/idontcare-openshift-auth`
+
+### Env variables
+PORT
+SECRET
+HTTPCAT
