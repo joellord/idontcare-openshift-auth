@@ -3,16 +3,17 @@ const bodyParser = require('body-parser');
 const jwt = require("jsonwebtoken");
 const dotenv = require('dotenv');
 
-var app = express();
+const app = express();
 dotenv.config();
 
-var users = [
+const users = [
   {id: 1, username: "joellord", password: "joellord"},
   {id: 2, username: "guest", password: "guest"}
 ];
 
 const HTTP_CAT_URL = process.env.HTTPCAT || "http://localhost:4444";
 const PORT = process.env.PORT || "8080";
+const SECRET = process.env.SECRET;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -33,7 +34,7 @@ app.post("/login", function(req, res) {
     sub: user.id,
     scope: "api:read",
     username: user.username
-  }, "mysupersecret", {expiresIn: "10 minutes"});
+  }, SECRET, {expiresIn: "10 minutes"});
 
   res.redirect(req.body.callback + "#access_token=" + token);
 });
